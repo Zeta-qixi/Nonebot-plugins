@@ -13,6 +13,7 @@ path_ft ='data/chat/ft.txt'
 bot = nonebot.get_bot()
 master = bot.config.MASTER
 me = '894296015'
+      
 
 #变量
 
@@ -44,6 +45,13 @@ except:
 1.获取消息信息（id msg time ...
 2.判定是msg包含字段
 3.判定是否复读
+
+-------------------------
+1.判定内容
+    判定是否@ （属于msg
+        判定是否master
+            to do 
+
 '''
 
     
@@ -51,42 +59,51 @@ except:
 
 
 @bot.on_message('group')
-async def ycm(context):
+async def chat(context):
     message = context['raw_message'].strip()
     group_id = context['group_id']
     user_id = context['user_id']
 #复读判定
+    #启动后 群第一次信息 创建字典
     if group_id not in repeat_times:
         repeat_times[group_id] = 1
-        My_repeat_time[group_id] = time.time()
     else:
         if latest_message[group_id] == message :
             if latest_message_user != user_id:
                 repeat_times[group_id] +=1
         else :
-            repeat_times[group_id] = 1
+            repeat_times[group_id] = 1 
+    #发动复读
     if (repeat_times[group_id] - 1) * 0.2 > random.random() :
         if  repeat_message[group_id] != message :
-            await bot.send_group_msg(group_id=group_id,message=message)
-            repeat_message[group_id] = message
+                await bot.send_group_msg(group_id=group_id,message=message)
+                repeat_message[group_id] = message
 
     latest_message[group_id] = message
     latest_message_user[group_id] = user_id
 
 
-    if 'ycm' == message:
+    if 'ycm' in message :
         msg_list=['myc', '无', 'myc，爬', 'https://bandoristation.com/']
         if user_id == master[0] :
             await bot.send_group_msg(group_id=group_id,message='^_^' + msg_list[3])
         else:
             await bot.send_group_msg(group_id=group_id,message=random.choice(msg_list))
 
+
+    elif '老婆' in message and me in message :
+        if user_id in master:
+
+
+
     for i in data:
         if i in message :
             if me in message :
                 await bot.send_group_msg(group_id=group_id,message=random.choice(ft))
-            elif user_id != master[0] and random.random() > 0.7:
-                await bot.send_group_msg(group_id=group_id,message= i +' ( ^ω^ )')
+                break
+            elif user_id in master and random.random() > 0.7:
+                await bot.send_group_msg(group_id=group_id,message= random.choice(ft) +' ( ^ω^ )')
+                break
 
 
 
