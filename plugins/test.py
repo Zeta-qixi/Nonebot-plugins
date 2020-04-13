@@ -9,14 +9,17 @@ master = bot.config.MASTER
 
 #@on_natural_language({'天气'}, only_to_me=False) 自然语言 { } is a set
 
+#1
+'''
 tlist = ['t1', 't2']
 @on_command('test', aliases=tlist ,only_to_me=False)
 async def Url_Test2(session: CommandSession):
     user_id=session.ctx['user_id']
     if user_id in master:
         await session.send(message='[CQ:face,id=20]')
-        await session.send(message='123')
-
+'''
+#2
+'''
 @bot.on_message('group')
 async def chat(context):
     message = context['raw_message'].strip()
@@ -30,4 +33,21 @@ async def chat(context):
 
     if '894296015' in message:
         await bot.send_group_msg(group_id=group_id,message='is me')
+'''
 
+
+@bot.on_message('group')
+async def url(context):
+    type(context)
+
+    group_id = context['group_id']
+    user_id = context['user_id']
+
+#提取内容 去cq ：
+# message = context['raw_message'].split('[')[-1]
+# await bot.send_group_msg(group_id=group_id,message=message)
+
+#提取url
+    if user_id != 2990556280 :
+        url = context['message'][-1]['data']['url']
+        await bot.send_group_msg(group_id=group_id,message=url)

@@ -6,23 +6,26 @@ import sys
 import random
 import time
 from aiocqhttp.exceptions import ActionFailed
-
-root=os.path.join(os.path.dirname(__file__),'data')
 path ='data/jrrp.txt'
 
 def RP(a):
-    data = []
-    with open(path) as f:
-        for line in f.readlines():
-            eachdata = line.split()
-            data.append(eachdata)
-    for i in range(len(data)):
-        if a == data[i][0]:
-            return(data[i][1], 0)
-    rd = random.randrange(101)
+    try:
+        data = []
+        with open(path) as f:
+            for line in f.readlines():
+                eachdata = line.split()
+                data.append(eachdata)
+        for i in range(len(data)):
+            if a == data[i][0]:
+                return(data[i][1], 0)
+        rd = random.randrange(101)
+    except:
+        return(-1, -1)
+        
     with open(path,'a+') as f:
         f.write(a+' '+str(rd)+'\n')
     return(rd, 1)
+
 
 bot = nonebot.get_bot()
 master = bot.config.MASTER
@@ -30,13 +33,16 @@ master = bot.config.MASTER
 async def jrrp(session: CommandSession):
     user_id=session.ctx['user_id']
     rp, ft= RP(str(user_id))
-    await session.send(message=f'[CQ:at,qq={user_id}] 今天的人品值是：{rp}')
+    if rp == -1 :
+        await session.send(message='w调试中w')
+    else:
+        await session.send(message=f'[CQ:at,qq={user_id}] 今天的人品值是：{rp}')
     if ft == 1:
         try:
             
             if int(rp) <10:
                 time.sleep(2)
-                talk = random.choice(['不愧是你.jpg', '残念','[CQ:face,id=20]'])
+                talk = random.choice(['不愧是您.jpg', '残念','[CQ:face,id=20]'])
                 await session.send(message=talk)
            
             elif int(rp) == 100:
@@ -54,10 +60,6 @@ async def jrrp(session: CommandSession):
                     await session.send(message=talk)
         except:
             await session.send(message=f'[CQ:at,qq={master[0]}] 好像出问题了 (･_･;')
-
-
-        
-
 
 
 ##0点清空文件

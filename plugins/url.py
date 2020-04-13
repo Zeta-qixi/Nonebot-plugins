@@ -15,10 +15,10 @@ async def FindPicture(session: CommandSession):
     await session.send(message='https://saucenao.com/testing/')
 
 
-@on_command('课程')
+@on_command('课程',only_to_me=False)
 async def MyClass(session: CommandSession):
     await session.send(message='https://ke.qq.com/webcourse/index.html?cid=1604111&term_id=101703432&lite=1&from=800021724')
 
-@on_command('作业')
+@on_command('作业',only_to_me=False)
 async def MyHomework(session: CommandSession):
     await session.send(message='http://www.icourse163.org/spoc/course/GDY250-1452793196')
