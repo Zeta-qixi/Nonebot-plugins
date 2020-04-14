@@ -15,6 +15,7 @@ def Read_room():
     driver.get('https://bandoristation.com/')
     time.sleep(0.5)
     text=driver.page_source
+    driver.quit()
     t2 = text.split('<div class="content">')[-1].split('<div class="home-side-button-container">')[0]
     t3 = t2.split('<span class="room-number-data-raw-msg">')[1:]
     room = []

@@ -7,19 +7,16 @@ import time
 from aiocqhttp.exceptions import ActionFailed
 sys.path.append(os.path.join(os.path.dirname(__file__), 'data','chat'))
 import ycm
-root=os.path.join(os.path.dirname(__file__),'data','chat')
-os.chdir(root)
-path_nm ='data/chat/nm.txt'
-path_ft ='data/chat/ft.txt'
-bot = nonebot.get_bot()
-master = bot.config.MASTER
-me = '894296015'
-      
 
 #变量
 
-
-#------------
+bot = nonebot.get_bot()
+path_nm ='data/chat/nm.txt'
+path_ft ='data/chat/ft.txt'
+master = bot.config.MASTER
+me = '894296015'
+      
+# -global- #
 latest_message = {}
 My_repeat_time = {}
 latest_message_user = {}
@@ -31,18 +28,19 @@ latest_ycm = 0
 '''
 设置 语言库 设置qq添加
 '''
-try:
-    data_nm = []
-    with open(path_nm) as f:
-        for line in f.readlines():
-            data.append(line.strip())
-    data_ft = []
-    with open(path_ft) as f:
-        for line in f.readlines():
-            data_ft.append(line.strip())
-    print('导入成功')
-except:
-    print('char没打开文件')
+
+data_nm = []
+data_ft = []
+
+
+with open(path_nm) as f:
+    for line in f.readlines():
+        data_nm.append(line.strip())
+with open(path_ft) as f:
+    for line in f.readlines():
+        data_ft.append(line.strip())
+            
+
 
 
 '''
@@ -108,7 +106,7 @@ async def chat(context):
             else :
                 text = ''
                 for i in room:
-                    text = text + i +'\n'
+                    text = text + i +'\n\n'
                     await bot.send_group_msg(group_id=group_id,message=text)
         else :
             await bot.send_group_msg(group_id=group_id,message='爬累了 （cd中）')
