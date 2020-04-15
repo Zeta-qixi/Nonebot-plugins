@@ -1,0 +1,32 @@
+ujson module not found, using json
+msgpack not installed, MsgPackSerializer unavailable
+[2020-04-14 06:06:21,709 nonebot] INFO: Succeeded to import "nonebot.plugins.base"
+[2020-04-14 06:06:21,790 nonebot] INFO: Succeeded to import "plugins.alarm_clock"
+char没打开文件
+[2020-04-14 06:06:21,818 nonebot] INFO: Succeeded to import "plugins.chat"
+[2020-04-14 06:06:21,819 nonebot] INFO: Succeeded to import "plugins.jrrp"
+[2020-04-14 06:06:21,820 nonebot] INFO: Succeeded to import "plugins.url"
+[2020-04-14 06:06:21,820 nonebot] INFO: Running on 0.0.0.0:8080
+Running on http://0.0.0.0:8080 (CTRL + C to quit)
+[2020-04-14 06:06:21,828 nonebot] INFO: Scheduler started
+[2020-04-14 06:06:21,830] Running on 0.0.0.0:8080 over http (CTRL + C to quit)
+[2020-04-14 06:06:23,914] 172.18.0.2:57649 GET /ws/api/ 1.1 101 - 4364
+[2020-04-14 06:06:23,920] 172.18.0.2:53674 GET /ws/event/ 1.1 101 - 2387
+[2020-04-14 06:06:23,925] INFO in __init__: received event: meta_event.lifecycle.connect
+[2020-04-14 06:06:38,311] INFO in __init__: received event: meta_event.heartbeat
+[2020-04-14 06:06:53,369] INFO in __init__: received event: meta_event.heartbeat
+[2020-04-14 06:07:02,014 nonebot] INFO: Self: 894296015, Message 4079 from 1019289695: '。jrrp'
+[2020-04-14 06:07:02,014 nonebot] DEBUG: Parsing command: '。jrrp'
+[2020-04-14 06:07:02,014 nonebot] DEBUG: Matched command start: 。
+[2020-04-14 06:07:02,014 nonebot] DEBUG: Split command name: ('jrrp',)
+[2020-04-14 06:07:02,014 nonebot] DEBUG: Command ('jrrp',) found, function: <function jrrp at 0x7f3de977daf0>
+[2020-04-14 06:07:02,014 nonebot] DEBUG: New session of command ('jrrp',) created
+[2020-04-14 06:07:02,014 nonebot] DEBUG: Running command ('jrrp',)
+[2020-04-14 06:07:02,012] INFO in __init__: received event: message.private.friend
+[2020-04-14 06:07:02,117 nonebot] DEBUG: Session of command ('jrrp',) finished
+[2020-04-14 06:07:02,117 nonebot] INFO: Message 4079 is handled as a command
+[2020-04-14 06:07:08,434] INFO in __init__: received event: meta_event.heartbeat
+[2020-04-14 06:07:23,494] INFO in __init__: received event: meta_event.heartbeat
+[2020-04-14 06:07:38,555] INFO in __init__: received event: meta_event.heartbeat
+[2020-04-14 06:07:53,622] INFO in __init__: received event: meta_event.heartbeat
+[2020-04-14 06:08:08,690] INFO in __init__: received event: meta_event.heartbeat
