@@ -34,7 +34,7 @@ async def jrrp(session: CommandSession):
     user_id=session.ctx['user_id']
     rp, ft= RP(str(user_id))
     if rp == -1 :
-        await session.send(message='w调试中w')
+        await session.send(message='没有人品（找不到文件~')
     else:
         await session.send(message=f'[CQ:at,qq={user_id}] 今天的人品值是：{rp}')
     if ft == 1:
@@ -56,7 +56,7 @@ async def jrrp(session: CommandSession):
 
             else :
                 if random.random() > 0.8:
-                    talk = random.choice(['......', '(^_^)','嗯嗯、'])
+                    talk = random.choice(['......', '(^_^)','ええ、'])
                     await session.send(message=talk)
         except:
             await session.send(message=f'[CQ:at,qq={master[0]}] 好像出问题了 (･_･;')

@@ -24,7 +24,7 @@ async def post_bytes(url, headers=None,data=None):
             b = await response.read()
     return b
 
-new_switch,hbook_switch=True,True
+new_switch,hbook_switch=True,False
 @on_command('switch', aliases=('开启','关闭'), only_to_me=True) 
 async def switch(session: CommandSession):
     if session.ctx['user_id'] in session.bot.config.MASTER:
@@ -51,7 +51,7 @@ async def switch(session: CommandSession):
         await session.send('您配吗？')
 
 
-@on_command('Rnews', aliases=('日服新闻','日服活动'), only_to_me=True)
+@on_command('Rnews', aliases=('pcr日服新闻','pcr日服活动'), only_to_me=False)
 async def Rnews(session: CommandSession):
     header = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
     url = 'https://priconne-redive.jp/news/'
@@ -76,7 +76,7 @@ async def Rnews(session: CommandSession):
         msg0 += msg
     await session.send(message= msg0)
 
-@on_command('Tnews', aliases=('台服新闻',), only_to_me=True)
+@on_command('Tnews', aliases=('pcr台服',), only_to_me=False)
 async def Tnews(session: CommandSession):
     url = 'http://www.princessconnect.so-net.tw/news'
     header ={ 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
@@ -100,7 +100,7 @@ async def Tnews(session: CommandSession):
         msg0 += msg
     await session.send(message= msg0)
 
-@on_command('Tevents', aliases=('台服活动',), only_to_me=True)
+@on_command('Tevents', aliases=('pcr活动',), only_to_me=False)
 async def Tevents(session: CommandSession):
     header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
     url = 'https://pcredivewiki.tw/static/data/event.json'
@@ -185,6 +185,9 @@ async def hbooks(session: CommandSession):
                 msg0 = ('\n-----------------------------------------------\n本子链接：https://b-upp.com%s \n本子标题：%s '%(data[i]))
                 msg+=msg0
             await session.send(message=msg)
+    else:
+        await session.send(message='现在还不能查本子哦~')
+
 
 
 @on_command('anime_search', aliases=('以图搜番','搜番','什么番', '看番', '看房','什么动漫','什么房'), only_to_me=False)

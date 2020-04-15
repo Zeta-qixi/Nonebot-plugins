@@ -6,7 +6,7 @@ from aiocqhttp.exceptions import ActionFailed
 
 bot = nonebot.get_bot()
 master = bot.config.MASTER
-
+#from nonebot import on_natural_language, NLPSession, IntentCommand
 #@on_natural_language({'天气'}, only_to_me=False) 自然语言 { } is a set
 
 #group_list = await bot.get_group_list() 获取list

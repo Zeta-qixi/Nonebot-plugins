@@ -13,7 +13,7 @@ chrome_options.add_argument('--headless') #浏览器不提供可视化页面. li
 def Read_room(): 
     driver = webdriver.Chrome(options=chrome_options)
     driver.get('https://bandoristation.com/')
-    time.sleep(0.5)
+    time.sleep(0.3)
     text=driver.page_source
     driver.quit()
     t2 = text.split('<div class="content">')[-1].split('<div class="home-side-button-container">')[0]
