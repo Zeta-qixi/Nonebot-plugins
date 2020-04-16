@@ -4,12 +4,13 @@ import os
 import sys
 import time
 import random
-sys.path.append(os.path.join(os.path.dirname(__file__), 'data','chat'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'data'))
 import ycm
 from aiocqhttp.exceptions import ActionFailed
 bot = nonebot.get_bot()
 master = bot.config.MASTER
 latest_ycm = 0
+setycm = 1
 @on_command('音游地图',aliases=('引诱地图',), only_to_me=False)
 async def yyMap(session: CommandSession):
     await session.send(message='https://map.bemanicn.com/')
@@ -30,12 +31,15 @@ async def MyHomework(session: CommandSession):
 @on_command('ycm',aliases=('有车吗',), only_to_me=False)
 async def find_room(session: CommandSession):
     global latest_ycm
-    if time.time() - latest_ycm > 30:
-        await session.send(message='正在爬...')
+    global setycm
+    if setycm == 0 :
+        await session.send(message='......')
+    elif time.time() - latest_ycm > 60 :
+        await session.send(message='...')
         latest_ycm = time.time()
         room = []
         room = ycm.Read_room()
-        msg_list=['myc', '无']
+        msg_list=['myc', '无','窝屎就有', '地平线就有', 'gta就有']
         if not room :
             await session.send(message=random.choice(msg_list))
         else :
@@ -44,4 +48,17 @@ async def find_room(session: CommandSession):
                 text = text + i +'\n'
             await session.send(message=text)
     else :
-        await session.send(message='爬累了 , 休息')
+        await session.send(message='自己看 https://bandoristation.com/')
+
+
+
+@on_command('setycm', only_to_me=True)
+async def set_ycm(session: CommandSession):
+    global setycm
+    if setycm :
+        setycm = 0
+    else:
+        setycm = 1
+    status = ['关', '开']
+    await session.send(message=f'功能ycm状态：{status[setycm]}')
+

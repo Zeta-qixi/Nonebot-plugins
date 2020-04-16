@@ -17,7 +17,10 @@ My_repeat_time = {}
 latest_message_user = {}
 repeat_times = {}
 repeat_message = {}
-
+extras = {
+    '草' : ['草']
+    ,"人？" : ['人？','是大爹','椰叶！','tql']
+}
 
 @bot.on_message('group')
 async def chat(context):
@@ -31,17 +34,25 @@ async def chat(context):
     global latest_message_user
     global repeat_message
 
+    #特殊处理
+    for i in extras :
+        if message == i and repeat_message[group_id] != message and random.random()<0.7:
+            await bot.send_group_msg(group_id=group_id,message=random.choice(extras[i]))
+            repeat_message[group_id] = message
+
         #第一次消息
     if group_id not in repeat_times:
         repeat_times[group_id] = 1
         repeat_message[group_id] = ''
     else:
-        #判定是否复读
+        #判定是否为复读
         if latest_message[group_id] == message :
             if latest_message_user[group_id] != user_id:
                 repeat_times[group_id] +=1
         else :
             repeat_times[group_id] = 1 
+
+    
     #发动
     if (repeat_times[group_id] - 1) * 0.2 > random.random() :
         if '能' in message or 'zdn' in message:

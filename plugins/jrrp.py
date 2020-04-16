@@ -47,7 +47,7 @@ async def jrrp(session: CommandSession):
            
             elif int(rp) == 100:
                 newrp = random.random() + 99.5
-                await session.send(message='触发连续区间判定：' + newrp)
+                await session.send(message='~~：' + newrp)
                 await session.send(message=f'[CQ:at,qq={user_id}] 赶紧十连！！')
 
             elif int(rp) >= 95:

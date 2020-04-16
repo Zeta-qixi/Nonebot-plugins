@@ -72,7 +72,7 @@ async def Rnews(session: CommandSession):
 
     msg0 = '已为骑士君查询最新{}条新闻：'.format(len(title))
     for i in range(len(title)):
-        msg = (f'\n-----------------------------------------------\nNews {i+1}:\n标题: {title[i]}\n链接: {link[i]}\n时间: {time[i]}')
+        msg = (f'\n-----------------------\nNews {i+1}:\n标题: {title[i]}\n链接: {link[i]}\n时间: {time[i]}')
         msg0 += msg
     await session.send(message= msg0)
 
@@ -96,7 +96,7 @@ async def Tnews(session: CommandSession):
     time = [i.strip() for i in time0]
     msg0 = '已为骑士君查询最新{}条新闻：'.format(len(title))
     for i in range(len(title)):
-        msg = (f'\n-----------------------------------------------\nNews {i+1}:\n标题: {title[i]}\n链接: {link[i]}\n时间: {time[i]}')
+        msg = (f'\n-----------------------\nNews {i+1}:\n标题: {title[i]}\n链接: {link[i]}\n时间: {time[i]}')
         msg0 += msg
     await session.send(message= msg0)
 
@@ -113,7 +113,7 @@ async def Tevents(session: CommandSession):
     for i in data:
         t=dt.datetime.strptime(i['end_time'],'%Y/%m/%d %H:%M')
         if t>n:
-            msg=('\n-----------------------------------------------\n活动名称：{}\n活动时间：{}--{}'.format(jianfan.toSimpleString(i['campaign_name']),i['start_time'][5:],i['end_time'][5:]))
+            msg=('\n-----------------------\n活动名称：{}\n活动时间：{}--{}'.format(jianfan.toSimpleString(i['campaign_name']),i['start_time'][5:],i['end_time'][5:]))
             msg0+=msg
     await session.send(message= msg0)
 
@@ -153,7 +153,7 @@ async def ja_to_zh(session: CommandSession):
             await session.send(re_msg[0])
 
 
-@on_command('hbook', aliases=('本子查询','找本子'), only_to_me=False)
+@on_command('hbook', aliases=('看本子','找本子','色图'), only_to_me=False)
 async def hbooks(session: CommandSession):
     if hbook_switch: 
         f_msg=session.current_arg.strip()
@@ -182,11 +182,11 @@ async def hbooks(session: CommandSession):
             if f_type == 'group':
                 msg=f'[CQ:at,qq={f_qq}]\n已查询到{n}本关键词为[{f_msg}]的本子：'
             for i in range(n):
-                msg0 = ('\n-----------------------------------------------\n本子链接：https://b-upp.com%s \n本子标题：%s '%(data[i]))
+                msg0 = ('\n-----------------------\n本子链接：https://b-upp.com%s \n本子标题：%s '%(data[i]))
                 msg+=msg0
             await session.send(message=msg)
     else:
-        await session.send(message='现在还不能查本子哦~')
+        await session.send(message='现在还不给看哦~')
 
 
 
@@ -219,7 +219,7 @@ async def anime_search(session: CommandSession):
             msg0=f'按相似度找到以下{len(d)}个动漫：'
             for i in result:
                 t+=1
-                msg=(f'\n-----------------------------------------------\n({t})\n相似度：{i[1][0]}\n动漫名：《{i[0]}》\n时间点：{i[1][1]} {i[1][2]}')
+                msg=(f'\n-----------------------\n({t})\n相似度：{i[1][0]}\n动漫名：《{i[0]}》\n时间点：{i[1][1]} {i[1][2]}')
                 msg0+=msg
             await session.send(msg0)
         else :

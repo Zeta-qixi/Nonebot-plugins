@@ -29,7 +29,6 @@ data = {}
 ptalk = {}
 with open(path_nm) as f:
     for line in f.readlines():
-        print(line.strip())
         data_nm.append(line.strip())
 with open(path_ft) as f:
     for line in f.readlines():
@@ -52,7 +51,7 @@ async def chat(context):
     group_id = context['group_id']
     user_id = context['user_id']
     global ptalk
-    ptalk.setdefault(group_id,0.2)
+    ptalk.setdefault(group_id,0.3)
 
     if '老婆' in message and me in message :
         if user_id == master[0]:
@@ -61,31 +60,32 @@ async def chat(context):
         elif random.random() > 0.5:
             msg_list=['?', '？？', '[CQ:face,id=32]']
             await bot.send_group_msg(group_id=group_id,message=random.choice(msg_list))
+
     
 
 
     for i in data:
-        if i in message :
-            if user_id != master[0]:
+        if i in message and user_id != master[0] :
+            if len(i) >= 2 or i == message:
                 if random.random() < ptalk[group_id] :
                     await bot.send_group_msg(group_id=group_id,message=random.choice(data[i]))
+                    return 0
 
 
-    for i in data_nm :
-        if i in message:
-            try:
-                if me in message :
-                    if random.random() < 0.90:
-                        await bot.send_group_msg(group_id=group_id,message=random.choice(data_ft))
-                    else :
-                        await bot.send_group_msg(group_id=group_id,message='[CQ:face,id=146]')
-                        await bot.send_group_msg(group_id=group_id,message=f'[CQ:at,qq={user_id}] 今天的人品值是：0')
-                    break
-                elif user_id not in master and random.random() < 0.1:
-                    await bot.send_group_msg(group_id=group_id,message= random.choice(data_ft) +' ( ^ω^ )')
-                    break
-            except:
-                await bot.send_private_msg(user_id=master[0], message='2. 出错了')
+    if me in message :
+        for i in data_nm :
+            if i in message:
+
+                if random.random() < 0.95:
+                    await bot.send_group_msg(group_id=group_id,message=random.choice(data_ft))
+                    return 0
+                else :
+                    await bot.send_group_msg(group_id=group_id,message='[CQ:face,id=146]')
+                    await bot.send_group_msg(group_id=group_id,message=f'[CQ:at,qq={user_id}] 今天的人品值是：0')
+                    return 0
+        tome = ['( ^ω^ )', '?', '¿', '......','(･_･;', '呵呵', '[CQ:face,id=13][CQ:face,id=13][CQ:face,id=13]']
+        await bot.send_group_msg(group_id=group_id,message=random.choice(tome))
+
 
 
     

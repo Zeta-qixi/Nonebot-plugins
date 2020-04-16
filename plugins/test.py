@@ -8,7 +8,6 @@ bot = nonebot.get_bot()
 master = bot.config.MASTER
 #from nonebot import on_natural_language, NLPSession, IntentCommand
 #@on_natural_language({'天气'}, only_to_me=False) 自然语言 { } is a set
-
 #group_list = await bot.get_group_list() 获取list
 
 #1
@@ -35,7 +34,7 @@ async def chat(context):
 
     if '894296015' in message:
         await bot.send_group_msg(group_id=group_id,message='is me')
-'''
+
 
 
 @bot.on_message('group')
@@ -53,3 +52,13 @@ async def url(context):
     if user_id != 2990556280 :
         url = context['message'][-1]['data']['url']
         await bot.send_group_msg(group_id=group_id,message=url)
+
+'''
+@on_command('ttest' ,only_to_me=False)
+async def Url_Test2(session: CommandSession):
+    user_id=session.ctx['user_id']
+    if user_id in master:
+        await session.send(message='[CQ:face,id=20]')
+        return 0
+
+    await session.send(message='[CQ:face,id=1]')
