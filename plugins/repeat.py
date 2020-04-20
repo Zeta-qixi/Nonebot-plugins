@@ -19,7 +19,7 @@ repeat_times = {}
 repeat_message = {}
 extras = {
     '草' : ['草']
-    ,"人？" : ['人？','是大爹','椰叶！','tql']
+    ,"人？" : ['人？','tql']
 }
 
 @bot.on_message('group')
@@ -35,6 +35,8 @@ async def chat(context):
     global repeat_message
 
     #特殊处理
+    if 'jrrp' in message:
+        return 
     for i in extras :
         if message == i and repeat_message[group_id] != message and random.random()<0.7:
             await bot.send_group_msg(group_id=group_id,message=random.choice(extras[i]))

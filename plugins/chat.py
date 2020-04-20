@@ -9,6 +9,7 @@ import re
 from aiocqhttp.exceptions import ActionFailed
 
 #变量
+path_tome ='data/chat/tome.txt'
 path_nm ='data/chat/nm.txt'
 path_ft ='data/chat/ft.txt'
 path = 'data/chat/data.txt'
@@ -17,16 +18,17 @@ master = bot.config.MASTER
 me = '894296015'
       
 # -global- #
-latest_message = {}
-My_repeat_time = {}
-latest_message_user = {}
-repeat_times = {}
-repeat_message = {}
+trigger = {}
 lock = 0
+data_tome = []
 data_nm = []
 data_ft = []
 data = {}
 ptalk = {}
+
+with open(path_tome) as f:
+    for line in f.readlines():
+        data_tome.append(line.strip())
 with open(path_nm) as f:
     for line in f.readlines():
         data_nm.append(line.strip())
@@ -50,8 +52,11 @@ async def chat(context):
     message = context['raw_message'].strip()
     group_id = context['group_id']
     user_id = context['user_id']
+    
     global ptalk
     ptalk.setdefault(group_id,0.3)
+
+    trigger.setdefault(group_id,' ')
 
     if '老婆' in message and me in message :
         if user_id == master[0]:
@@ -61,18 +66,35 @@ async def chat(context):
             msg_list=['?', '？？', '[CQ:face,id=32]']
             await bot.send_group_msg(group_id=group_id,message=random.choice(msg_list))
 
-    
+
+    for i in ['睡觉', '歇了','眠了']:
+        if i in message :
+            for j in ['不', '别','你', '他']:
+                if j not in message:
+                    if user_id in master:
+                        await bot.send_group_msg(group_id=group_id,message=f'[CQ:at,qq={user_id}] 晚安~ mua~')
+                        return 
+                    else:
+                        await bot.send_group_msg(group_id=group_id,message=' 晚安啦~')
+                        return 
+
+#1. 非master 发送 含触发词 信息
+#2. 对字符<2 用精准匹配
+#3. 是否已触发
+#4. 随意 & 主动对线
 
 
     for i in data:
         if i in message and user_id != master[0] :
-            if len(i) >= 2 or i == message:
-                if random.random() < ptalk[group_id] :
-                    await bot.send_group_msg(group_id=group_id,message=random.choice(data[i]))
-                    return 0
+            if len(i) > 2 or i == message:
+                if trigger[group_id] != i :
+                    if random.random() < ptalk[group_id] or user_id == 1109144843:
+                        await bot.send_group_msg(group_id=group_id,message=random.choice(data[i]))
+                        trigger[group_id] = i
+                        return 0
 
 
-    if me in message :
+    if me in message and user_id not in master:
         for i in data_nm :
             if i in message:
 
@@ -83,8 +105,8 @@ async def chat(context):
                     await bot.send_group_msg(group_id=group_id,message='[CQ:face,id=146]')
                     await bot.send_group_msg(group_id=group_id,message=f'[CQ:at,qq={user_id}] 今天的人品值是：0')
                     return 0
-        tome = ['( ^ω^ )', '?', '¿', '......','(･_･;', '呵呵', '[CQ:face,id=13][CQ:face,id=13][CQ:face,id=13]']
-        await bot.send_group_msg(group_id=group_id,message=random.choice(tome))
+        tome = ['( ^ω^ )', '?', '¿', '......','(･_･;', '呵呵', '[CQ:face,id=13][CQ:face,id=13][CQ:face,id=13]','sb?']
+        await bot.send_group_msg(group_id=group_id,message=random.choice(data_tome))
 
 
 

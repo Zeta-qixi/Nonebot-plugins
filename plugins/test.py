@@ -62,3 +62,10 @@ async def Url_Test2(session: CommandSession):
         return 0
 
     await session.send(message='[CQ:face,id=1]')
+
+@on_command('test' )
+async def Url_Test1(session: CommandSession):
+
+    msg = session.ctx['message']
+    print(msg)
+    await session.send(message=msg[-1])
